@@ -1,3 +1,4 @@
+import LocalStorageKeys from "../../../utils/LocalStorageKeys";
 import Task from "../../../utils/Types";
 
 type TaskListProps = {
@@ -5,6 +6,30 @@ type TaskListProps = {
 };
 
 const TaskList = ({ items }: TaskListProps) => {
+  async function deleteItem(id: number) {
+    const request = await fetch(
+      `${import.meta.env.VITE_API_URL}/task/delete/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem(
+            LocalStorageKeys.ACCESS_TOKEN
+          )}`,
+        },
+      }
+    );
+
+    if (request.status != 204) {
+      let errorMessage = {
+        message: "",
+      };
+
+      errorMessage = await request.json();
+
+      alert("Error: " + errorMessage.message);
+    }
+  }
+
   return (
     <>
       <ul className="space-y-4">
@@ -24,7 +49,10 @@ const TaskList = ({ items }: TaskListProps) => {
             <button
               type="button"
               className="text-red-600 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-            ></button>
+              onClick={() => deleteItem(item.id)}
+            >
+              Apagar
+            </button>
           </li>
         ))}
       </ul>
