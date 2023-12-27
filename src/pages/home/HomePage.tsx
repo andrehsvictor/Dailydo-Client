@@ -18,11 +18,9 @@ const HomePage = () => {
     setDescription(event.target.value);
   }
 
-  async function handleClick(
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) {
+  async function handleClick() {
     const request = await fetch(
-      "https://dailydo-api.onrender.com/task/create",
+      `${import.meta.env.VITE_API_URL}/task/create`,
       {
         method: "POST",
         body: JSON.stringify({ title, description }),
@@ -46,7 +44,7 @@ const HomePage = () => {
   }
 
   useEffect(() => {
-    fetch("https://dailydo-api.onrender.com/tasks", {
+    fetch(`${import.meta.env.VITE_API_URL}/tasks`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem(
           LocalStorageKeys.ACCESS_TOKEN
