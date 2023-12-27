@@ -1,0 +1,15 @@
+name: Build image and push to Dockerhub
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+  dockerhub-ci:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/dailydo-client:0.1
+    - name: Push Docker image to Dockerhub
+      run: |
+        docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ DOCKERHUB_ACCESS_TOKEN }}
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/dailydo-client:0.1
