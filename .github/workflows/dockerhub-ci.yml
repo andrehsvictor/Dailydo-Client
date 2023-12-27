@@ -2,6 +2,9 @@ name: Build image and push to Dockerhub
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - 'README.md'
+      - '.github/'
 jobs:
   dockerhub-ci:
     runs-on: ubuntu-latest
