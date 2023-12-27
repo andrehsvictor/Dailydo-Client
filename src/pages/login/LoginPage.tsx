@@ -27,7 +27,7 @@ const LoginPage = () => {
   const handleSubmit = async (event: React.FormEvent<any>) => {
     event.preventDefault();
     setDoingLogin(true);
-    const request = await fetch("https://dailydo-api.onrender.com/auth/login", {
+    const request = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
       method: "POST",
       body: JSON.stringify({ username, password }),
       headers: {
@@ -60,7 +60,7 @@ const LoginPage = () => {
     while (doingLogin) {
       return (
         <div className="fixed w-screen h-screen bg-white bg-opacity-60 flex items-center justify-center">
-          <h1 className="m-auto">Loging</h1>
+          <h1 className="m-auto italic">Fazendo login...</h1>
         </div>
       );
     }
