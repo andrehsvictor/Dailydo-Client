@@ -1,5 +1,5 @@
 type Task = {
-  id: number | null;
+  id: number;
   title: string | null;
   description: string | null;
   createdAt: Date | null;
